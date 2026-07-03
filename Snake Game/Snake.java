@@ -5,6 +5,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Snake {
 
@@ -21,11 +22,15 @@ public class Snake {
         snakeMove = new LinkedList <> ();
         random = new Random();
 
-        int randRow = random.nextInt(size - 1);
-        int randCol = random.nextInt(size - 1);
+        int randRow = random.nextInt(size);
+        int randCol = random.nextInt(size);
 
+        for(int i=0; i<size; i++) {
+            Arrays.fill(board[i], '0');
+        }
         // Initializing the Snake Food
         board[randRow][randCol] = 'X';
+
 
         snakeMove.add(new Node(0, 0));
     }
@@ -43,14 +48,14 @@ public class Snake {
 
             // Generating Sneke Food
             if(board[row][col] == 'X') {
-                int randRow = random.nextInt(size - 1);
-                int randCol = random.nextInt(size - 1);
 
-                // ReGenerating the Snake Food it Snake moving at the same direction
-                if(board[randRow][randCol] == '.') {
-                    randRow = random.nextInt(size - 1);
-                    randCol = random.nextInt(size - 1);
-                }
+                int randRow, randCol;
+
+                do {
+                    randRow = random.nextInt(size);
+                    randCol = random.nextInt(size);
+
+                } while(board[randRow][randCol] != '0');
 
                 board[randRow][randCol] = 'X';
             }
